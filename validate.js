@@ -1,10 +1,7 @@
 var async = require("async");
-var loopback = require("loopback");
-var util = require("util");
-var _ = require('underscore');
 var validators = require("./validators");
 var xloop = require("xloop");
-var resultCrawler = xloop.resulCrawler;
+var resultCrawler = xloop.resultCrawler;
 var reqCache = xloop.reqCache;
 var packageJSON = require("./package");
 
