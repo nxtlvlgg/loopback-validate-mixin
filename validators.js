@@ -1,5 +1,4 @@
 var async = require("async");
-var loopback = require("loopback");
 var _ = require("underscore");
 
 
@@ -61,7 +60,7 @@ function validateSpam(state, validatorCb) {
     // Track information about the sender
     var requestIp = state.ctx.req.headers['x-forwarded-for'] || state.ctx.req.connection.remoteAddress;
     var requestUserAgent = state.ctx.req.headers['user-agent'];
-    var requestReferer = state.ctx.header('Referer');
+    var requestReferer = state.ctx.req.header('Referer');
 
 
     async.waterfall([
