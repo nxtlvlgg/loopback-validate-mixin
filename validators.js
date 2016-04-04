@@ -177,8 +177,16 @@ function validateSlug(state, uniqueCb) {
     uniqueErr.statusCode = 422;
     uniqueErr.code = 'FIELD NOT UNIQUE';
 
+    // Remove nulls and undefined from query
+    var where = {};
+    for(var key in state.requestData) {
+        if(state.requestData[key] !== undefined && state.requestData[key] !== null) {
+            where[key] = state.requestData[key];
+        }
+    }
+
     return state.model.find({
-        where: state.requestData,
+        where: where,
         fields: {
             id: true,
             slug: true,
