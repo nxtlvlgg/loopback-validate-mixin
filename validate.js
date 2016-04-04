@@ -16,33 +16,30 @@ module.exports = function(Model, mixinOptions) {
     });
 
 
-    Model.observe("after save", function(ctx, next) {
+    Model.observe("before save", function(ctx, next) {
         ctx.req = reqCache.getRequest();
-        async.series([
-            validate(Model, mixinOptions, ctx)
-        ], next);
+        validate(Model, mixinOptions, ctx, next);
     });
 };
 
 
 
-function validate(Model, mixinOptions, ctx) {
-    return function (finalCb) {
+function validate(Model, mixinOptions, ctx, finalCb) {
 
-        mixinOptions.stateVars = {
-            report: {
-                passed: true,
-                elements: {},
-                errors: {}
-            }
-        };
-        mixinOptions.mixinName = packageJSON.mixinName;
-        mixinOptions.newStateHandler = newStateHandler;
-        mixinOptions.primitiveHandler = primitiveHandler;
-        mixinOptions.postHandler = postHandler;
+    mixinOptions.stateVars = {
+        report: {
+            passed: true,
+            elements: {},
+            errors: {}
+        }
+    };
+    mixinOptions.mixinName = packageJSON.mixinName;
+    mixinOptions.newStateHandler = newStateHandler;
+    mixinOptions.primitiveHandler = primitiveHandler;
+    mixinOptions.postHandler = postHandler;
 
-        return resultCrawler.crawl(Model, mixinOptions, ctx, null, finalCb);
-    }
+    return resultCrawler.crawl(Model, mixinOptions, ctx, null, finalCb);
+
 }
 
 function newStateHandler(oldState, newState, mixinOptions) {

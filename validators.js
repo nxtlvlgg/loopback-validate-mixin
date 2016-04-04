@@ -201,7 +201,7 @@ function validateSlug(state, uniqueCb) {
                     return slugCb();
                 } else if (slugMatches.length > 1) {
                     return slugCb(true);
-                } else if (slug.id.toString() !== slugMatches[0].id.toString()) {
+                } else if (slug.id.toString() === slugMatches[0].id.toString()) {
                     return slugCb(true);
                 }
 
