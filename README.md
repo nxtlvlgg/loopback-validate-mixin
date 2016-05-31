@@ -1,0 +1,2 @@
+# loopback-validate-mixin
+test
